@@ -14,6 +14,17 @@ services:
     stdin_open: true
     tty: true
     command: make dev
+    env_file:
+      - .env
+    environment:
+      DATABASE_HOST: db
+      DATABASE_NAME: postgres
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: password
+      DATABASE_PORT: "5432"
+    depends_on:
+      db:
+        condition: service_healthy
 
   caddy:
     image: caddy:2-alpine
