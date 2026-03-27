@@ -21,7 +21,7 @@ docker run --rm -p 8080:8080 -e NODE_ENV=development devdanilboe/devops-for-deve
 
 ## Как поднять у себя
 
-1. Скопируйте переменные окружения: `make env` или вручную `cp .env.example .env`. Список переменных — в `.env.example`; сам `.env` в репозиторий не кладём.
+1. Для `make dev` отдельный `.env` не обязателен: в `docker-compose.override.yml` уже заданы переменные для Postgres. Файл `.env.example` и команда `make env` (копия в `.env`) нужны, если хотите те же значения для других тулов или для `app/` на хосте — в git `.env` не коммитим.
 
 2. Первый раз поставьте зависимости и миграции: `make setup`.
 

@@ -12,8 +12,6 @@ services:
     stdin_open: true
     tty: true
     command: make dev
-    env_file:
-      - .env
     environment:
       DATABASE_HOST: db
       DATABASE_NAME: postgres
