@@ -4,7 +4,20 @@ install:
 	npm install
 
 db-migrate:
-	npm run migrate
+	@db_reachable=true; \
+	if [ "$${DATABASE_HOST}" = "db" ]; then \
+	  db_reachable=false; \
+	  if command -v getent >/dev/null 2>&1 && getent hosts db >/dev/null 2>&1; then \
+	    db_reachable=true; \
+	  elif command -v bash >/dev/null 2>&1 && bash -c 'cat < /dev/null > /dev/tcp/db/5432' 2>/dev/null; then \
+	    db_reachable=true; \
+	  fi; \
+	fi; \
+	if [ "$${DATABASE_HOST}" = "db" ] && [ "$$db_reachable" = "false" ]; then \
+	  env -u DATABASE_HOST -u DATABASE_NAME -u DATABASE_USERNAME -u DATABASE_PASSWORD -u DATABASE_PORT npm run migrate; \
+	else \
+	  npm run migrate; \
+	fi
 
 build:
 	npm run build

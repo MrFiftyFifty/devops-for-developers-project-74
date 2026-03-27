@@ -21,7 +21,7 @@ docker run --rm -p 8080:8080 -e NODE_ENV=development devdanilboe/devops-for-deve
 
 ## Как поднять у себя
 
-1. Для `make dev` отдельный `.env` не обязателен: в `docker-compose.override.yml` уже заданы переменные для Postgres. Файл `.env.example` и команда `make env` (копия в `.env`) нужны, если хотите те же значения для других тулов или для `app/` на хосте — в git `.env` не коммитим.
+1. Для `make dev` отдельный `.env` не обязателен: в `docker-compose.override.yml` заданы `DATABASE_*`, в том числе `DATABASE_HOST=db` для сервиса приложения в сети Compose. В `.env.example` намеренно нет `DATABASE_HOST`: тогда миграции и Sequelize в режиме development на машине без сети Compose идут в SQLite; внутри контейнера переменные задаёт Compose. `make env` копирует пример в `.env` при необходимости — сам `.env` в git не кладём.
 
 2. Первый раз поставьте зависимости и миграции: `make setup`.
 
