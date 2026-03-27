@@ -1,10 +1,14 @@
-.PHONY: setup dev test
+COMPOSE ?= docker-compose
+
+.PHONY: setup dev test ci
+
+ci:
+	$(COMPOSE) -f docker-compose.yml up --abort-on-container-exit --exit-code-from app
+
+test: ci
 
 setup:
-	docker-compose run --rm app make setup
+	$(COMPOSE) run --rm app make setup
 
 dev:
-	docker-compose up
-
-test:
-	docker-compose -f docker-compose.yml up --abort-on-container-exit --exit-code-from app
+	$(COMPOSE) up
