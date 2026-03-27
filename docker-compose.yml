@@ -2,11 +2,9 @@ version: "3.8"
 
 services:
   app:
+    image: devdanilboe/devops-for-developers-project-74:latest
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.production
     working_dir: /app
-    volumes:
-      - ./app:/app
-    user: "${UID:-1000}:${GID:-1000}"
     command: make test

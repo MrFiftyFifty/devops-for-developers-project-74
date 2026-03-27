@@ -2,6 +2,13 @@ version: "3.8"
 
 services:
   app:
+    image: devops-for-developers-project-74-dev:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./app:/app
+    user: "${UID:-1000}:${GID:-1000}"
     ports:
       - "8080:8080"
     stdin_open: true
