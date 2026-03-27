@@ -1,0 +1,12 @@
+services:
+  app:
+    image: node:20.12.2
+    working_dir: /root
+    volumes:
+      - ./app:/root
+    ports:
+      - "8080:8080"
+    user: "${UID:-1000}:${GID:-1000}"
+    stdin_open: true
+    tty: true
+    command: make dev
