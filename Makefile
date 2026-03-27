@@ -1,4 +1,4 @@
-COMPOSE ?= docker-compose
+COMPOSE ?= $(shell docker compose version >/dev/null 2>&1 && echo "docker compose" || echo "docker-compose")
 
 .PHONY: setup dev test ci
 
